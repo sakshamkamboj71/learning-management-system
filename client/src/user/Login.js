@@ -1,11 +1,17 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
   const fetchedUrl =
-    "https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830027.jpg?w=1060&t=st=1707983932~exp=1707984532~hmac=e853d17148b40b88c10d45c2d21b1f30da0dc988d67097c2222049446be1b81c";
+    "https://wallpapercrafter.com/sizes/2560x1440/156051-black-abstract-dark-texture.jpg";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,23 +23,26 @@ const Login = () => {
 
     if (response.data.error) {
       console.log(response.data.error);
+      setError(response.data.error);
       return;
     }
 
-    console.log(response.data.token);
-
-    window.localStorage.setItem("token", response.data.token);
+    if (response.data.token) {
+      console.log(response.data.token);
+      window.localStorage.setItem("token", response.data.token);
+      navigate("/");
+    }
   };
 
   return (
     <div
-      className="w-full h-screen bg-cover"
+      className="w-full h-screen bg-cover bg-black"
       style={{ backgroundImage: `url(${fetchedUrl})` }}
     >
-      <div className="w-full h-screen flex flex-col items-center justify-center backdrop-blur-md">
-        <h1 className="text-6xl font-bold mb-4 text-black">Login</h1>
+      <div className="w-full h-screen flex flex-col items-center justify-center">
+        <h1 className="text-7xl mb-4 text-white">LOGIN</h1>
         <form
-          className="w-1/2 shadow-2xl p-8 text-lg bg-[#1A2421] rounded-md flex flex-col items-center"
+          className="w-1/2 shadow-2xl p-8 text-lg bg-[#1A2421] border-[1px] rounded-md flex flex-col items-center"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col mb-8 w-full">
@@ -74,6 +83,15 @@ const Login = () => {
           </button>
         </form>
       </div>
+      {error ? (
+        <div className="flex justify-center items-center w-full absolute bottom-0 ">
+          <div className="p-2 mb-4 text-lg font-bold bg-white rounded-md text-center">
+            {error}
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

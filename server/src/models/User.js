@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
-const ModSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
+  type: { type: String, required: true },
   age: { type: Number },
   phone: { type: Number },
 });
 
-export const ModModel = mongoose.model("moderator", ModSchema);
+export const UserModel = new mongoose.model("users", UserSchema);

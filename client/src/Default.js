@@ -12,7 +12,7 @@ const Default = () => {
 
   return (
     <div
-      className="w-full h-screen block sm:flex flex-col xl:flex-row select-none bg-cover"
+      className="w-full h-screen block sm:flex flex-col xl:flex-row select-none bg-cover bg-black"
       style={{ backgroundImage: `url(${backgroundUrl})` }}
     >
       <div className="block sm:flex sm:flex-row w-full h-2/3 sm:h-1/2 xl:h-full xl:w-2/3">

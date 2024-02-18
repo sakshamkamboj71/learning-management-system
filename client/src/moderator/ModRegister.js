@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ModRegister = () => {
   const [email, setEmail] = useState("");
@@ -6,19 +8,46 @@ const ModRegister = () => {
   const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
+
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
   const fetchedUrl =
     "https://wallpapercrafter.com/sizes/2560x1440/156051-black-abstract-dark-texture.jpg";
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const response = await axios.post(
+      "http://localhost:8000/mod-auth/register",
+      {
+        username,
+        email,
+        password,
+        age,
+        phone,
+      }
+    );
+
+    if (response.data.error) {
+      setError(response.data.error);
+      console.log(response.data.error);
+      return;
+    }
+
+    if (response.data.message) {
+      console.log(response.data.message);
+      navigate("/login");
+    }
   };
 
   return (
     <div
-      className="w-full h-screen bg-cover"
+      className="w-full h-screen bg-cover bg-black"
       style={{ backgroundImage: `url(${fetchedUrl})` }}
     >
-      <div className="w-full h-screen flex flex-col items-center justify-center">
+      <div className="w-full h-screen flex flex-col items-center pt-8">
         <h1 className="text-7xl mb-4 text-[#72abfc] select-none tracking-wide">
           MOD - REGISTER
         </h1>
@@ -116,6 +145,15 @@ const ModRegister = () => {
           </button>
         </form>
       </div>
+      {error ? (
+        <div className="flex justify-center items-center w-full absolute bottom-0 ">
+          <div className="p-2 mb-4 text-lg font-bold bg-white rounded-md text-center">
+            {error}
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

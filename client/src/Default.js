@@ -2,13 +2,17 @@ import React from "react";
 import { FaUserGear } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
 import { RiAdminFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const Default = () => {
   const backgroundUrl =
     "https://wallpapercrafter.com/sizes/2560x1440/156051-black-abstract-dark-texture.jpg";
+
+  const navigate = useNavigate();
+
   return (
     <div
-      className="w-full h-screen block sm:flex flex-col xl:flex-row select-none"
+      className="w-full h-screen block sm:flex flex-col xl:flex-row select-none bg-cover"
       style={{ backgroundImage: `url(${backgroundUrl})` }}
     >
       <div className="block sm:flex sm:flex-row w-full h-2/3 sm:h-1/2 xl:h-full xl:w-2/3">
@@ -28,7 +32,10 @@ const Default = () => {
           </div>
         </div>
         <div className="w-full sm:w-1/2 h-1/2 sm:h-full border-black p-2 sm:p-4 xl:p-10 cursor-pointer">
-          <div className="flex sm:block items-center justify-between px-4  bg-black w-full h-full text-gray-400 hover:text-[#72abfc] hover-scale-[1.03] sm:hover:scale-[1.05] hover:border-[#72abfc] hover:border-2 rounded-lg border-gray-400 border-2">
+          <div
+            onClick={() => navigate("/mod-register")}
+            className="flex sm:block items-center justify-between px-4  bg-black w-full h-full text-gray-400 hover:text-[#72abfc] hover-scale-[1.03] sm:hover:scale-[1.05] hover:border-[#72abfc] hover:border-2 rounded-lg border-gray-400 border-2"
+          >
             <div>
               <h1 className="text-xl sm:text-3xl lg:text-4xl text-center font-semibold sm:pt-4">
                 Sign in as

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const Register = () => {
+const ModRegister = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
   const fetchedUrl =
-    "https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830027.jpg?w=1060&t=st=1707983932~exp=1707984532~hmac=e853d17148b40b88c10d45c2d21b1f30da0dc988d67097c2222049446be1b81c";
+    "https://wallpapercrafter.com/sizes/2560x1440/156051-black-abstract-dark-texture.jpg";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,11 +18,13 @@ const Register = () => {
       className="w-full h-screen bg-cover"
       style={{ backgroundImage: `url(${fetchedUrl})` }}
     >
-      <div className="w-full h-screen flex flex-col items-center justify-center backdrop-blur-md">
-        <h1 className="text-6xl font-bold mb-4 text-black">Register</h1>
+      <div className="w-full h-screen flex flex-col items-center justify-center">
+        <h1 className="text-7xl mb-4 text-[#72abfc] select-none tracking-wide">
+          MOD - REGISTER
+        </h1>
 
         <form
-          className="w-1/2 shadow-2xl p-8 text-lg bg-[#1A2421] rounded-md flex flex-col items-center"
+          className="w-1/2 shadow-2xl p-8 text-lg bg-[#1A2421] border-[1px] rounded-md flex flex-col items-center"
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col mb-8 w-full">
@@ -107,7 +109,7 @@ const Register = () => {
             </div>
           </div>
           <button
-            className="bg-[#1A2421] border-2 hover:border-black hover:bg-white hover:text-black text-white font-semibold p-2 px-16 hover:scale-[1.15] ease-in-out duration-150 transition rounded-md"
+            className="bg-[#1A2421] border-2 border-[#72abfc] hover:bg-[#72abfc] hover:text-black text-[#72abfc] font-semibold p-2 px-16 hover:scale-[1.15] ease-in-out duration-150 transition rounded-md"
             type="submit"
           >
             Submit
@@ -118,4 +120,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default ModRegister;

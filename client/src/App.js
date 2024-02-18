@@ -1,8 +1,8 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 import Default from "./Default";
+import ModRegister from "./moderator/ModRegister";
 import Login from "./user/Login";
-import Register from "./user/Register";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Default />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/mod-register" element={<ModRegister />} />
         </Routes>
       </Router>
     </div>

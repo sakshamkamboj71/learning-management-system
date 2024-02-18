@@ -1,13 +1,28 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const fetchedUrl =
     "https://img.freepik.com/free-vector/white-abstract-wallpaper_23-2148830027.jpg?w=1060&t=st=1707983932~exp=1707984532~hmac=e853d17148b40b88c10d45c2d21b1f30da0dc988d67097c2222049446be1b81c";
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const response = await axios.post("http://localhost:8000/mod-auth/login", {
+      username,
+      password,
+    });
+
+    if (response.data.error) {
+      console.log(response.data.error);
+      return;
+    }
+
+    console.log(response.data.token);
+
+    window.localStorage.setItem("token", response.data.token);
   };
 
   return (
@@ -22,17 +37,17 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <div className="flex flex-col mb-8 w-full">
-            <label className="pl-2 text-white select-none" htmlFor="email">
-              E-mail :
+            <label className="pl-2 text-white select-none" htmlFor="username">
+              Username :
             </label>
             <input
               className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md "
-              type="email"
-              id="email"
+              type="text"
+              id="username"
               placeholder="Enter your E-mail"
-              value={email}
+              value={username}
               onChange={(e) => {
-                setEmail(e.target.value);
+                setUsername(e.target.value);
               }}
             />
           </div>

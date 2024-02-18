@@ -1,10 +1,10 @@
 //Inside the client folder
 
-npm install react-icons react-router-dom
+npm install react-icons react-router-dom axios
 
 //Inside the server folder
 
-npm install axios bcrypt mongoose
+npm install axios bcrypt mongoose express cors nodemon dotenv jsonwebtoken
 
 
 

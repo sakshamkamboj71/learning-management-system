@@ -16,7 +16,7 @@ const Default = () => {
       style={{ backgroundImage: `url(${backgroundUrl})` }}
     >
       <div className="block sm:flex sm:flex-row w-full h-2/3 sm:h-1/2 xl:h-full xl:w-2/3">
-        <div className="w-full sm:w-1/2 h-1/2 sm:h-full p-2 sm:p-4 xl:p-10 cursor-pointer">
+        <div className="w-full sm:w-1/2 h-1/2 sm:h-full p-2 sm:p-4 xl:p-10 cursor-pointer" onClick={()=> navigate("/Home")}>
           <div className="flex sm:block items-center justify-between px-4 bg-black w-full h-full text-gray-400 hover:text-[#d872fc] hover-scale-[1.03] sm:hover:scale-[1.05] hover:border-[#d872fc] hover:border-2 rounded-lg border-gray-400 border-2">
             <div>
               <h1 className="text-xl sm:text-3xl lg:text-4xl text-center font-semibold sm:pt-4">

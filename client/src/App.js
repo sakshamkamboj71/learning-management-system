@@ -7,6 +7,7 @@ import ModHome from "./moderator/ModHome";
 import ModRegister from "./moderator/ModRegister";
 import Home from "./user/Home";
 import Login from "./user/Login";
+import UserRegister from "./user/UserRegister.js";
 
 function App() {
   const token = window.localStorage.token;
@@ -43,6 +44,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/mod-register" element={<ModRegister />} />
               <Route path="/sign-in" element={<Default />} />
+              <Route path="/user-register" element={<UserRegister/>}/>
             </>
           )}
         </Routes>

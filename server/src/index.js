@@ -5,6 +5,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import { modRouter } from "./routes/mods.js";
+import { userRouter } from "./routes/user.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(
 );
 
 app.use("/mod-auth", modRouter);
+app.use("/user-register", userRouter);
 
 mongoose.connect(process.env.MONGO_URI);
 

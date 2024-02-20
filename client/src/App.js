@@ -41,6 +41,7 @@ function App() {
 
           {!loggedIn && (
             <>
+              <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/mod-register" element={<ModRegister />} />
               <Route path="/sign-in" element={<Default />} />

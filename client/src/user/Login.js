@@ -30,6 +30,11 @@ const Login = () => {
     if (response.data.token) {
       console.log(response.data.token);
       window.localStorage.setItem("token", response.data.token);
+
+      setTimeout(() => {
+        console.log("Delayed for 1 second.");
+      }, "1000");
+
       navigate("/");
     }
   };

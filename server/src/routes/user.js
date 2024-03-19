@@ -9,44 +9,44 @@ const router = express.Router();
 
 //-----------------Register for user
 router.post("/register", async (req, res) => {
-  const { username, password, email, age, number } = req.body;
+  const { username, password, email, age, phone } = req.body;
 
   try {
     // username
     if (username === "" || username === undefined || username === null) {
-      console.json({
+      return res.json({
         error: "please enter an a valid username",
       });
     }
-    const userExist = await UserModel.findOne(username);
+    const userExist = await UserModel.findOne({ username });
     if (userExist) {
-      console.json({
+      return res.json({
         error: "User already exist",
       });
     }
 
     //Email
     if (email === "" || email === undefined || email === null) {
-      console.json({
+      return res.json({
         error: "please enter an a valid email",
       });
     }
-    const emailExist = await UserModel.findOne(username);
+    const emailExist = await UserModel.findOne({ username });
     if (emailExist) {
-      console.json({
+      return res.json({
         error: "User already exist",
       });
     }
 
     //password
     if (password === "" || password === undefined || password === null) {
-      console.json({
+      return res.json({
         error: "please enter an a valid password",
       });
     }
-    const passwordLen = await UserModel.findOne(password);
+    const passwordLen = await UserModel.findOne({ password });
     if (passwordLen < 8 && passwordLen > 16) {
-      console.json({
+      return res.json({
         error: "Password must be 8-16 characters long",
       });
     }
@@ -66,7 +66,7 @@ router.post("/register", async (req, res) => {
     });
 
     await updatedModel.save();
-    console.json({ message: "User registered successfully" });
+    return res.json({ message: "User registered successfully" });
   } catch (err) {
     console.error(err);
   }

@@ -22,20 +22,18 @@ const Login = () => {
     });
 
     if (response.data.error) {
-      console.log(response.data.error);
       setError(response.data.error);
       return;
     }
 
     if (response.data.token) {
-      console.log(response.data.token);
       window.localStorage.setItem("token", response.data.token);
 
       setTimeout(() => {
         console.log("Delayed for 1 second.");
+        navigate("/mod-home");
+        window.location.reload();
       }, "1000");
-
-      navigate("/");
     }
   };
 

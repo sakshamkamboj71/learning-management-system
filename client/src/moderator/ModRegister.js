@@ -6,6 +6,10 @@ const ModRegister = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [profilePic, setProfilePic] = useState("");
   const [age, setAge] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -27,6 +31,10 @@ const ModRegister = () => {
         password,
         age,
         phone,
+        firstName,
+        middleName,
+        lastName,
+        profilePic,
       }
     );
 
@@ -53,11 +61,71 @@ const ModRegister = () => {
         </h1>
 
         <form
-          className="w-1/2 shadow-2xl p-8 text-lg bg-[#1A2421] border-[1px] rounded-md flex flex-col items-center"
+          className="w-3/4 shadow-2xl p-8 text-lg bg-[#1A2421] border-[1px] rounded-md flex flex-col items-center"
           onSubmit={handleSubmit}
         >
-          <div className="flex flex-col mb-8 w-full">
-            <label className="pl-2 text-white select-none" htmlFor="email">
+          <div className="flex justify-between w-full">
+            <div className="pr-4">
+              <label
+                className="pl-2 font-bold text-white select-none"
+                htmlFor="firstName"
+              >
+                First Name :
+              </label>
+              <input
+                className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"
+                type="firstName"
+                id="firstName"
+                placeholder="Enter your E-mail"
+                value={firstName}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="px-4">
+              <label
+                className="pl-2 font-bold text-white select-none"
+                htmlFor="middleName"
+              >
+                Middle Name:
+              </label>
+              <input
+                className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"
+                type="middleName"
+                id="middleName"
+                placeholder="Enter your E-mail"
+                value={middleName}
+                onChange={(e) => {
+                  setMiddleName(e.target.value);
+                }}
+              />
+            </div>
+            <div className="pl-4">
+              <label
+                className="pl-2 font-bold text-white select-none"
+                htmlFor="lastName"
+              >
+                Last Name :
+              </label>
+              <input
+                className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"
+                type="lastName"
+                id="lastName"
+                placeholder="Enter your E-mail"
+                value={lastName}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col mb-4 w-full">
+            <label
+              className="pl-2 font-bold text-white select-none"
+              htmlFor="email"
+            >
               E-mail :
             </label>
             <input
@@ -71,38 +139,46 @@ const ModRegister = () => {
               }}
             />
           </div>
-          <div className="flex flex-col mb-8 w-full">
-            <label className="pl-2 text-white select-none" htmlFor="username">
-              Username :
-            </label>
-            <input
-              className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"
-              type="text"
-              id="username"
-              placeholder="Enter your Username"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
-          </div>
-          <div className="flex flex-col mb-8 w-full">
-            <label className="pl-2 text-white select-none" htmlFor="password">
-              Password :
-            </label>
-            <input
-              className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"
-              type="password"
-              id="password"
-              placeholder="Enter your Password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+          <div className="w-full flex justify-between">
+            <div className="flex flex-col mb-4 w-1/2 pr-4">
+              <label
+                className="pl-2 font-bold text-white select-none"
+                htmlFor="username"
+              >
+                Username :
+              </label>
+              <input
+                className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"
+                type="text"
+                id="username"
+                placeholder="Enter your Username"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+            </div>
+            <div className="flex flex-col mb-4 w-1/2 pl-4">
+              <label
+                className="pl-2 font-bold text-white select-none"
+                htmlFor="password"
+              >
+                Password :
+              </label>
+              <input
+                className="w-full outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"
+                type="password"
+                id="password"
+                placeholder="Enter your Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
           </div>
 
-          <div className="flex w-full justify-between mb-8">
+          <div className="flex w-full justify-between mb-4">
             <div className="w-80">
               <label
                 className="pl-2 text-white text-left select-none"
@@ -122,7 +198,10 @@ const ModRegister = () => {
               />
             </div>
             <div className="w-80">
-              <label className="pl-2 text-white select-none" htmlFor="phone">
+              <label
+                className="pl-2 font-bold text-white select-none"
+                htmlFor="phone"
+              >
                 Phone Number :
               </label>
               <input
@@ -145,14 +224,12 @@ const ModRegister = () => {
           </button>
         </form>
       </div>
-      {error ? (
+      {error && (
         <div className="flex justify-center items-center w-full absolute bottom-0 ">
           <div className="p-2 mb-4 text-lg font-bold bg-white rounded-md text-center">
             {error}
           </div>
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

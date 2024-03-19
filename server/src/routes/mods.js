@@ -9,7 +9,17 @@ import { UserModel } from "../models/User.js";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const { username, email, password, age, phone } = req.body;
+  const {
+    username,
+    email,
+    firstName,
+    middleName,
+    lastName,
+    password,
+    age,
+    phone,
+    profilePic,
+  } = req.body;
 
   try {
     //Email
@@ -46,6 +56,11 @@ router.post("/register", async (req, res) => {
       return res.json({ error: "Password must be 8-16 characters long" });
     }
 
+    //FirstName MiddleName LastName
+    if (firstName == null || firstName == undefined || firstName == "") {
+      return res.json({ error: "Please provide your first name" });
+    }
+
     //Registering the User
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -54,10 +69,14 @@ router.post("/register", async (req, res) => {
     const newMod = new UserModel({
       username,
       email,
+      firstName,
+      middleName,
+      lastName,
       password: hashedPassword,
       type,
       age,
       phone,
+      profilePic,
     });
     await newMod.save();
 
@@ -105,18 +124,53 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/verify", async (req, res) => {
+router.post("/verify-mod", async (req, res) => {
   const { token } = req.body;
 
-  const isValid = jwt.verify(token, process.env.SECRET_KEY, (err) => {
+  var flag = false;
+
+  const userInfo = jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
     if (err) {
-      return false;
+      flag = false;
+      return err;
     } else {
-      return true;
+      flag = true;
+      return data;
     }
   });
 
-  return res.json({ tokenStatus: isValid });
+  const user = await UserModel.findOne({ _id: userInfo.id });
+
+  if (user == null) {
+    console.log(user);
+    return;
+  }
+
+  if (flag && user.type === "moderator") {
+    return res.json({ tokenStatus: true });
+  } else {
+    return res.json({ tokenStatus: false });
+  }
+});
+
+router.post("/fetch-user-details", async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
+      if (err) {
+        throw { err: err };
+      } else {
+        return data;
+      }
+    });
+
+    const user = await UserModel.findOne({ _id: decoded.id });
+
+    return res.json({ user });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 export { router as modRouter };

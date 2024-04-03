@@ -51,6 +51,7 @@ const ModEditCourse = () => {
         lectureId: e.currentTarget.id,
       }
     );
+    console.log("hello");
     alert("Deleted");
   };
 

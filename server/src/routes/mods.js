@@ -142,7 +142,6 @@ router.post("/verify-mod", async (req, res) => {
   const user = await UserModel.findOne({ _id: userInfo.id });
 
   if (user == null) {
-    console.log(user);
     return;
   }
 

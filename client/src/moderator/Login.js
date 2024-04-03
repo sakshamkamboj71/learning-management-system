@@ -57,6 +57,7 @@ const Login = () => {
               type="text"
               id="username"
               placeholder="Enter your E-mail"
+              autoComplete="off"
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);

@@ -103,7 +103,7 @@ const ModAddLecture = () => {
               htmlFor="lectureLink"
               className="text-white pl-2 mt-6 select-none"
             >
-              Video Link
+              Embedded YouTube Video Link
             </label>
             <input
               className="text-lg w-full mt-3 border-[1px] border-gray-400 bg-[#121212] text-white outline-none p-2 focus:scale-[1.02] transition duration-150 rounded-md"

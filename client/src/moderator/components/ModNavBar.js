@@ -10,6 +10,11 @@ const ModNavBar = () => {
   const handleProfileNav = () => {
     navigate("/mod-profile");
   };
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <div className="bg-[#121212] w-full flex justify-between text-white h-16 fixed top-0">
       <div
@@ -28,7 +33,10 @@ const ModNavBar = () => {
         >
           Profile
         </div>
-        <div className="select-none border-2 border-[#72abfc] text-[#72abfc] h-full flex items-center justify-center min-w-28 px-4 hover:text-black hover:bg-[#72abfc] cursor-pointer  ease-in-out duration-150 transition">
+        <div
+          onClick={handleLogout}
+          className="select-none border-2 border-[#72abfc] text-[#72abfc] h-full flex items-center justify-center min-w-28 px-4 hover:text-black hover:bg-[#72abfc] cursor-pointer  ease-in-out duration-150 transition"
+        >
           Logout
         </div>
       </div>

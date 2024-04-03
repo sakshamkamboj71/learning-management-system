@@ -87,4 +87,23 @@ router.post("/fetch-single-lecture", async (req, res) => {
   }
 });
 
+router.post("/delete-single-lecture", async (req, res) => {
+  const { token, lectureId } = req.body;
+
+  const decoded = jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
+    if (err) {
+      return res.send({ error: "User Session is not valid" });
+    } else {
+      return data;
+    }
+  });
+
+  console.log(decoded.id);
+  // this has an error
+  const reponse = await LectureModel.DeleteOne({ _id: lectureId });
+  console.log(lectureId);
+
+  res.json({ message: "DELETED" });
+});
+
 export { router as lectureRouter };

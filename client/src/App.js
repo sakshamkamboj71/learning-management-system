@@ -6,6 +6,7 @@ import Default from "./Default.js";
 import Login from "./moderator/Login.js";
 import ModAddCourse from "./moderator/ModAddCourse.js";
 import ModAddLecture from "./moderator/ModAddLecture.js";
+import ModEditCourse from "./moderator/ModEditCourse.js";
 import ModHome from "./moderator/ModHome";
 import ModProfile from "./moderator/ModProfile.js";
 import ModRegister from "./moderator/ModRegister";
@@ -45,6 +46,7 @@ function App() {
               <Route path="/mod-home" element={<ModHome />} />
               <Route path="/mod-add-course" element={<ModAddCourse />} />
               <Route path="/mod-courses/:id" element={<ModViewCourse />} />
+              <Route path="/mod-edit-course/:id" element={<ModEditCourse />} />
               <Route path="/mod-add-lecture/:id" element={<ModAddLecture />} />
               <Route
                 path="/mod-view-lecture/:id/:id2"

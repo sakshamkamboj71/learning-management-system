@@ -1,15 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { RiImageEditFill } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate, useParams } from "react-router-dom";
 import ModNavBar from "./components/ModNavBar";
+import Popup from "./components/Popup";
 
 const ModEditCourse = () => {
   const params = useParams();
   const [lectures, setLectures] = useState([]);
   const token = window.localStorage.getItem("token");
   const navigate = useNavigate();
+  const [refresh, setRefresh] = useState(false);
+  const [pop, setPop] = useState(false);
 
   const [course, setCourse] = useState({});
 
@@ -38,12 +42,25 @@ const ModEditCourse = () => {
     fetchLectures();
   }, []);
 
+  useEffect(() => {
+    const fetchLectures = async () => {
+      const response = await axios.post(
+        "http://localhost:8000/lectures/fetch-lectures",
+        {
+          courseCode: params.id,
+        }
+      );
+      setLectures(response.data.lectures);
+    };
+    fetchLectures();
+  }, [refresh]);
+
   const handleBack = () => {
     navigate(`/mod-courses/${course.courseCode}`);
   };
 
   const handleDel = async (e) => {
-    console.log(e.currentTarget.id);
+    setRefresh(!refresh);
     const response = await axios.post(
       "http://localhost:8000/lectures/delete-single-lecture",
       {
@@ -51,9 +68,16 @@ const ModEditCourse = () => {
         lectureId: e.currentTarget.id,
       }
     );
-    console.log("hello");
     alert("Deleted");
   };
+
+  const handlePopupShow = () => {
+    setPop(true);
+  };
+
+  if (pop) {
+    return <Popup setPop={setPop} />;
+  }
 
   return (
     <div>
@@ -69,6 +93,14 @@ const ModEditCourse = () => {
           <h1 className="text-4xl font-bold tracking-wide truncate">
             {course.courseName}
           </h1>
+          <div className="flex gap-2 items-center">
+            <div
+              onClick={handlePopupShow}
+              className="text-2xl flex justify-center p-2 mr-2 border-2 border-gray-200 text-gray-200 hover:text-black hover:bg-gray-200 ease-in-out duration-150 transition rounded-full cursor-pointer select-none flex items-center"
+            >
+              <RiImageEditFill />
+            </div>
+          </div>
         </div>
         <p className="text-lg mb-8 mx-20 pb-2 border-b-2">
           {course.courseDesc}

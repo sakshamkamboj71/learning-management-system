@@ -98,12 +98,16 @@ router.post("/delete-single-lecture", async (req, res) => {
     }
   });
 
-  console.log(decoded.id);
+  // console.log(decoded.id);
   // this has an error
-  const reponse = await LectureModel.DeleteOne({ _id: lectureId });
-  console.log(lectureId);
+  try {
+    await LectureModel.findByIdAndDelete({ _id: lectureId });
 
-  res.json({ message: "DELETED" });
+    res.json({ message: "DELETED" });
+  } catch (err) {
+    console.log(err);
+    res.json({ error: err });
+  }
 });
 
 export { router as lectureRouter };

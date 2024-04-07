@@ -84,4 +84,36 @@ router.post("/fetch-single-course", async (req, res) => {
   }
 });
 
+router.post("/edit-course-img", async (req, res) => {
+  const { token, courseCode, courseImg } = req.body;
+
+  const decoded = jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
+    if (err) {
+      return res.send({ error: "User Session is not valid" });
+    } else {
+      return data;
+    }
+  });
+
+  // console.log(decoded.id);
+  console.log(courseCode);
+
+  const course = await CourseModel.find({ courseCode: courseCode });
+  console.log(course[0]._id);
+
+  try {
+    const response = await CourseModel.findByIdAndUpdate(
+      { _id: course[0]._id },
+      { courseImg: courseImg },
+      { new: true }
+    );
+  } catch (err) {
+    console.log(err);
+    return res.json({ error: "Error occurred" });
+  }
+
+  console.log("working");
+  return res.json({ message: "Working" });
+});
+
 export { router as courseRouter };

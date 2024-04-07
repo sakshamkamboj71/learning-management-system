@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
+import { MdEdit, MdOutlineRefresh } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import ModNavBar from "./components/ModNavBar";
 
@@ -10,6 +10,7 @@ const ModViewCourse = () => {
   const [lectures, setLectures] = useState([]);
   const token = window.localStorage.getItem("token");
   const navigate = useNavigate();
+  const [refresh, setRefresh] = useState(false);
 
   const [course, setCourse] = useState({});
 
@@ -38,6 +39,19 @@ const ModViewCourse = () => {
     fetchLectures();
   }, []);
 
+  useEffect(() => {
+    const fetchLectures = async () => {
+      const response = await axios.post(
+        "http://localhost:8000/lectures/fetch-lectures",
+        {
+          courseCode: params.id,
+        }
+      );
+      setLectures(response.data.lectures);
+    };
+    fetchLectures();
+  }, [refresh]);
+
   const handleAddLectureNav = () => {
     navigate(`/mod-add-lecture/${params.id}`);
   };
@@ -52,6 +66,10 @@ const ModViewCourse = () => {
 
   const handleEditLectureNav = () => {
     navigate(`/mod-edit-course/${course.courseCode}`);
+  };
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
   };
 
   return (
@@ -69,10 +87,16 @@ const ModViewCourse = () => {
             {course.courseName}
           </h1>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
+            <div
+              onClick={handleRefresh}
+              className="text-2xl flex justify-center p-2 mr-2 border-2 border-gray-200 text-gray-200 hover:text-black hover:bg-gray-200 ease-in-out duration-150 transition rounded-full cursor-pointer select-none flex items-center"
+            >
+              <MdOutlineRefresh />
+            </div>
             <div
               onClick={handleEditLectureNav}
-              className="text-2xl flex justify-center py-4 px-5 border-2 border-gray-200 text-gray-200 hover:text-black hover:bg-gray-200 ease-in-out duration-150 transition rounded-full cursor-pointer select-none flex items-center"
+              className="text-2xl flex justify-center p-4 border-2 border-gray-200 text-gray-200 hover:text-black hover:bg-gray-200 ease-in-out duration-150 transition rounded-full cursor-pointer select-none flex items-center"
             >
               <MdEdit />
             </div>
@@ -90,6 +114,7 @@ const ModViewCourse = () => {
 
         <div className="px-20">
           {lectures.map((lecture) => {
+            console.log("working");
             return (
               <div
                 id={lecture._id}
